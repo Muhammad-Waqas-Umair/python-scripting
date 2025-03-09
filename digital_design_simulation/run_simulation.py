@@ -87,12 +87,12 @@ class VerilogSimGUI:
         # Example of plotting a simple faulty circuit visualization (you can replace this with your logic)
         fig, ax = plt.subplots()
         ax.plot([0, 1, 2], [0, 1, 0], label='Circuit Output')
-        
+
         # Highlight faulty nodes (for example purposes, using a simple annotation)
         for node in faulty_nodes:
             ax.annotate(f"Faulty: {node}", xy=(1, 1), xytext=(2, 1),
                         arrowprops=dict(facecolor='red', shrink=0.05))
-        
+
         ax.set_title(f"Visualization of Faults in {faulty_circuit}")
         ax.set_xlabel('Time')
         ax.set_ylabel('Signal')
@@ -103,6 +103,11 @@ class VerilogSimGUI:
 
     def display_plot(self, fig):
         """Threaded function to display the plot without blocking the Tkinter GUI"""
+        # Ensure plt.show() is called from the main thread
+        self.root.after(0, self._show_plot, fig)
+
+    def _show_plot(self, fig):
+        """Helper function to display the plot in the main thread"""
         plt.show()
 
 if __name__ == "__main__":
