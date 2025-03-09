@@ -1,3 +1,5 @@
+# Calculate Revenue and Generate a CSV
+
 import csv
 
 def calculate_revenue(csv_file, output_file):
